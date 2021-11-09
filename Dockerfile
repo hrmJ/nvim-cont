@@ -31,6 +31,7 @@ nodejs \
 && rm -rf /var/lib/apt/lists/
 
 
+RUN npm i -g @fsouza/prettierd eslint_d
 
 RUN groupadd "${GNAME}"
 RUN useradd -rm -d /home/neovim -g "${GNAME}" -s "${SHELL}" "${UNAME}" 
@@ -51,7 +52,10 @@ USER neovim
 RUN ./nvim.appimage --appimage-extract-and-run --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 RUN ./nvim.appimage --appimage-extract-and-run --headless -c 'LspInstall tsserver' +q
 RUN echo "require('post-packer')" >> /home/neovim/.config/nvim/init.lua
-CMD ./nvim.appimage --appimage-extract-and-run 
+
+WORKDIR "${WORKSPACE}"
+
+CMD /home/neovim/nvim.appimage --appimage-extract-and-run 
 
 # docker build . -t nvim-cont && docker run -it --rm nvim-cont:latest
 

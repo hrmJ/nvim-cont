@@ -71,7 +71,7 @@ end
 
 
 require("null-ls").config({})
-lspconfig["null-ls"].setup({ on_attach = on_attach })
+lspconfig["null-ls"].setup({ on_attach = on_attach, cmd={'/home/neovim/nvim.appimage', '--appimage-extract-and-run'} })
 
 
 require('diagnostic-conf')
